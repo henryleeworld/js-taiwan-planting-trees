@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta property="og:title" content="台灣好植地" />
+        <meta property="og:description" content="了解樹木分佈的概況，接著透過找地的過程，盤點出尚未種樹的地區，若基本條件合宜的用地，將進一步評估種樹的機會，鼓勵在地團體一起來關注、提出與樹相融」的補植願景，並接洽土地管理單位，合作落實環境營造的行動。"/>
+        <meta property="og:locale" content="zh_TW" />
+        <meta property="og:type" content="website" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.5/ol.css" integrity="sha512-D2c/nmSVlwoZk29SLwJK8GkLyCyPuNbZ/vZQL/lNzw+o+yXzsbnJt7lK/iCfdBmgyLRDi0qx27gpE8Zb1C6I7g==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="css/ol3-sidebar.css" />
+        <link rel="stylesheet" href="css/planting-trees.css" />
+        <title>台灣好植地</title>
+    </head>
+    <body>
+        <div id="sidebar" class="sidebar collapsed">
+            <div class="sidebar-tabs">
+                <ul role="tablist">
+                    <li>
+                        <a href="#home" role="tab"><i class="fas fa-bars"></i></a>
+                    </li>
+                    <li>
+                        <a href="#note" role="tab"><i class="fas fa-sticky-note"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/henryleeworld/js-taiwan-planting-trees" role="tab" target="_blank"><i class="fab fa-github"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-content">
+                <div class="sidebar-pane" id="home">
+                    <h1 class="sidebar-header">
+                        好植地
+                        <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    </h1>
+                    <p id="sidebar-main-block"></p>
+                </div>
+                <div class="sidebar-pane" id="note">
+                    <h1 class="sidebar-header">
+                        <span id="weekTitle">說明</span><span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    </h1>
+                    <div>
+                        補植原則：
+                        <ul>
+                            <li>
+                                A. 生活使用：日常生活增添綠意，提出與樹木共融的設施<br />
+                                <ul class="sub-rule">
+                                    <li>增加喬木或複層植栽-例：苗栗監理站考照區亦種植喬木</li>
+                                    <li>結合公園綠地使用情境-例：新竹市馬偕綠園道、彰化縣伸港新市鎮公園</li>
+                                    <li>環境療癒-例：長庚醫院雲林分院、榮總蘇澳院區綠地</li>
+                                    <li>文化地景-例：嘉義市二二八國家紀念公園、鐵道公園</li>
+                                    <li>旅遊景點效益整合-例：臺中市鐵砧山遊客中心週邊綠地</li>
+                                </ul>
+                            </li>
+                            <li>
+                                B. 環境營造：緩衝、生態復育<br />
+                                <ul class="sub-rule">
+                                    <li>交通綠地提升綠覆品質</li>
+                                    <li>掩埋場環境營造</li>
+                                    <li>工業區綠化，發揮綠圍籬效用</li>
+                                    <li>山區生態修復</li>
+                                    <li>善用水體提升公園生態</li>
+                                    <li>河濱腹地營造棲地環境</li>
+                                    <li>海岸區位的海濱綠地</li>
+                                    <li>島嶼型植被復育</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="map" class="map"></div>
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+        </div>
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.5/ol.js" integrity="sha512-O7kHS9ooekX8EveiC94z9xSvD/4xt10Qigl6uEKvspYykdux3Ci5QNu5fwi4ca0ZkZI/oCgx5ja8RklWUEqzxQ==" crossorigin="anonymous" defer></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous" defer></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous" defer></script>
+        <script src="js/ol3-sidebar.js" defer></script>
+        <script src="js/planting-trees.js" defer></script>
+    </body>
+</html>
