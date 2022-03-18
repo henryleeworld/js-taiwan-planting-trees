@@ -11,8 +11,8 @@ $ git clone
 ----
 
 ## 畫面截圖
-![](https://i.imgur.com/5NOW5ql.png)
+![](https://i.imgur.com/asxBsRJ.png)
 > 讓每一塊土地，容納適合的植生
 
-![](https://i.imgur.com/CAUndeR.png)
+![](https://i.imgur.com/HUu2WFW.png)
 > 歸納補植原則方向種類
