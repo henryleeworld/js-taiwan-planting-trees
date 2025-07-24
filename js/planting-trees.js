@@ -27,7 +27,6 @@ var size = ol.extent.getWidth(projectionExtent) / 256;
 var resolutions = new Array(20);
 var matrixIds = new Array(20);
 for (var z = 0; z < 20; ++z) {
-    // generate resolutions and matrixIds arrays for this WMTS
     resolutions[z] = size / Math.pow(2, z);
     matrixIds[z] = z;
 }
@@ -130,7 +129,7 @@ var pointGreenStyle = new ol.style.Style({
 });
 
 var appView = new ol.View({
-    center: ol.proj.fromLonLat([120.20345985889435, 22.994906062625773]),
+    center: ol.proj.fromLonLat([121.563900, 25.034030]),
     zoom: 14
 });
 
